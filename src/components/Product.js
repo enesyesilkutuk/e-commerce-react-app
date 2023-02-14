@@ -3,8 +3,13 @@ import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const Product = () => {
-  return <h4>product</h4>
+const Product = ({id, image, name, price}) => {
+  return <Wrapper>
+    <div className="container">
+      <img src={image} alt={name} />
+      <Link to={`/products/${id}`} className='link'> <FaSearch /> </Link>
+    </div>
+  </Wrapper>
 }
 
 const Wrapper = styled.article`
@@ -25,7 +30,7 @@ const Wrapper = styled.article`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--clr-primary-5);
+    background-color: var(--clr-primary-5);
     display: flex;
     align-items: center;
     justify-content: center;

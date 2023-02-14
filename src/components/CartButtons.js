@@ -1,10 +1,24 @@
 import React from 'react'
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
+import { FaShoppingCart, FaUserPlus } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useProductsContext } from '../context/products_context'
 
 const CartButtons = () => {
-  return <h4>cart buttons </h4>
+  const { closeSidebar } = useProductsContext();
+  
+  return <Wrapper className='cart-btn-wrapper'>
+      <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
+        Cart 
+        <span className="cart-container">
+          <FaShoppingCart />
+          <span className="cart-value">12</span>
+        </span>
+      </Link>
+      <button type="button" className='auth-btn'>
+        Login <FaUserPlus />
+      </button>
+     </Wrapper>
 }
 
 const Wrapper = styled.div`
@@ -19,7 +33,6 @@ const Wrapper = styled.div`
     letter-spacing: var(--spacing);
     color: var(--clr-grey-1);
     display: flex;
-
     align-items: center;
   }
   .cart-container {
@@ -35,7 +48,7 @@ const Wrapper = styled.div`
     position: absolute;
     top: -10px;
     right: -16px;
-    background: var(--clr-primary-5);
+    background-color: var(--clr-primary-5);
     width: 16px;
     height: 16px;
     display: flex;
@@ -60,4 +73,4 @@ const Wrapper = styled.div`
     }
   }
 `
-export default CartButtons
+export default CartButtons;

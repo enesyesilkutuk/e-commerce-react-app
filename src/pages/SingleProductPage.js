@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Loading,
   Error,
@@ -8,13 +7,77 @@ import {
   AddToCart,
   Stars,
   PageHero,
-} from '../components'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+} from "../components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useProductsContext } from "../context/products_context";
+import { single_product_url } from "../utils/constants";
+import { formatPrice } from "../utils/helpers";
 
 const SingleProductPage = () => {
-  return <h4>single product page</h4>
-}
+  const {
+    fetchSingleProduct,
+    single_product_loading: loading,
+    single_product_error: error,
+    single_product: product,
+  } = useProductsContext();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const {
+    price,
+    description,
+    name,
+    id: sku,
+    stars,
+    reviews,
+    company,
+    images,
+    stock,
+  } = product;
+
+  useEffect(() => {
+    fetchSingleProduct(`${single_product_url}${id}`);
+  }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        navigate("/about");
+      }, 2000);
+    }
+  }, [error, navigate]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  return (
+    <Wrapper>
+      <PageHero title={name} product />
+      <div className="section section-center page">
+        <Link to='/products' className="btn">back to products</Link>
+        <div className="product-center">
+          <ProductImages images={images} />
+          <section className="content">
+            <h2>{name}</h2>
+            <Stars />
+            <h5 className="price">{formatPrice(price)}</h5>
+            <p className="desc">{description}</p>
+            <p className="info">
+              <span>Available : </span>
+              {stock > 0 ? 'in stock' : 'out of stock'}
+            </p>
+          </section>
+        </div>
+        
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.main`
   .product-center {
@@ -48,6 +111,6 @@ const Wrapper = styled.main`
       font-size: 1.25rem;
     }
   }
-`
+`;
 
-export default SingleProductPage
+export default SingleProductPage;

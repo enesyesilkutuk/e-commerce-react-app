@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FaSearch } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { formatPrice } from '../utils/helpers';
 
 const Product = ({id, image, name, price}) => {
   return <Wrapper>
@@ -9,13 +10,17 @@ const Product = ({id, image, name, price}) => {
       <img src={image} alt={name} />
       <Link to={`/products/${id}`} className='link'> <FaSearch /> </Link>
     </div>
+    <footer>
+      <h5>{name}</h5>
+      <p>{formatPrice(price)}</p>
+    </footer>
   </Wrapper>
 }
 
 const Wrapper = styled.article`
   .container {
     position: relative;
-    background: var(--clr-black);
+    background-color: var(--clr-black);
     border-radius: var(--radius);
   }
   img {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useProductsContext } from '../context/products_context'
 import Error from './Error'
@@ -24,7 +24,7 @@ const FeaturedProducts = () => {
         <div className="underline"></div>
       </div>
       <div className="section-center featured">
-        {featured.map((product) => {
+        {featured.slice(0,3).map((product) => {
           return (
             <Product key={product.id} {...product} />
           )
@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
 }
 
 const Wrapper = styled.section`
-  background: var(--clr-grey-10);
+  background-color: var(--clr-grey-10);
   .featured {
     margin: 4rem auto;
     display: grid;

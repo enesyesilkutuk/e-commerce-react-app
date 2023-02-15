@@ -19,4 +19,4 @@ const Wrapper = styled.div`
   }
 `
 
-export default ProductsPage
+export default ProductsPage;

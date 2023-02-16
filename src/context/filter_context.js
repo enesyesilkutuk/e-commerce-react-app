@@ -6,6 +6,7 @@ import { LOAD_PRODUCTS } from "../actions";
 const initialState = {
   filtered_products: [],
   all_products: [],
+  grid_view: true,
 };
 
 const FilterContext = createContext();
@@ -24,3 +25,5 @@ export const FilterProvider = ({ children }) => {
     <FilterContext.Provider value={values}>{children}</FilterContext.Provider>
   );
 };
+
+export const useFilterContext = () => useContext(FilterContext);

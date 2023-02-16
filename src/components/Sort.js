@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useFilterContext } from '../context/filter_context';
 
 const Sort = () => {
-  const {filtered_products: products, grid_view, setGridView, setListView } = useFilterContext();
+  const {filtered_products: products, grid_view, setGridView, setListView, updateSort, sort } = useFilterContext();
 
   return <Wrapper>
     <div className="btn-container">
@@ -19,7 +19,7 @@ const Sort = () => {
     <hr />
     <form>
       <label htmlFor='sort'>sort by</label>
-      <select name="sort" id="sort" className='sort-input'>
+      <select name="sort" id="sort" className='sort-input' onChange={updateSort} value={sort}>
         <option value="price-lowest">price (lowest)</option>
         <option value="price-highest">price (highest)</option>
         <option value="name-a">name (a-z)</option>
@@ -36,7 +36,9 @@ const Wrapper = styled.section`
   margin-bottom: 2rem;
   column-gap: 2rem;
   label {
-    margin-right: 1rem;
+    font-size: 1rem;
+    text-transform: capitalize;
+    margin-right: 0.5rem;
   }
   @media (max-width: 576px) {
     display: grid;
@@ -90,9 +92,6 @@ const Wrapper = styled.section`
     padding: 0.25rem 0.5rem;
     cursor: pointer;
   }
-  label {
-    font-size: 1rem;
-    text-transform: capitalize;
-  }
+
 `
 export default Sort;

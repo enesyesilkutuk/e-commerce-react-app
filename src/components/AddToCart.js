@@ -4,8 +4,24 @@ import { Link } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
 import AmountButtons from './AmountButtons'
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
+const AddToCart = ({product}) => {
+  const {id, stock, colors} = product;
+  const [mainColor, setMainColor] = useState(colors[0]);
+
+  return <Wrapper>
+    <div className="colors">
+      <span>colors:</span>
+    <div>
+    {colors.map((color, index) => {
+    return (
+      <button type='button' key={index} className={`${mainColor === color ? "color-btn active" : "color-btn"}`} style={{backgroundColor:`${color}`}} onClick={() => setMainColor(color)}>
+       { mainColor === color && <FaCheck /> }
+      </button>
+    )
+  })}
+      </div>
+    </div>
+  </Wrapper>
 }
 
 const Wrapper = styled.section`
@@ -28,7 +44,7 @@ const Wrapper = styled.section`
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
-    background: #222;
+    background-color: #222;
     margin-right: 0.5rem;
     border: none;
     cursor: pointer;

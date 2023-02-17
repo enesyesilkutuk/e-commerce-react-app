@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useProductsContext } from "./products_context";
 import reducer from "../reducers/filter_reducer";
-import { FILTER_PRODUCTS, LOAD_PRODUCTS, SET_GRIDVIEW, SET_LISTVIEW, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT } from "../actions";
+import { CLEAR_FILTERS, FILTER_PRODUCTS, LOAD_PRODUCTS, SET_GRIDVIEW, SET_LISTVIEW, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT } from "../actions";
 
 const initialState = {
   filtered_products: [],
@@ -46,10 +46,19 @@ export const FilterProvider = ({ children }) => {
     if (name === 'category') {
       value = e.target.textContent;
     }
+    if (name === 'color') {
+      value = e.target.dataset.color;
+    }
+    if (name === 'price') {
+      value = Number(value);
+    }
+    if (name === 'shipping') {
+      value = e.target.checked;
+    }
     dispatch({type: UPDATE_FILTERS, payload: {name, value}});
   };
 
-  const clearFilters = () => {};
+  const clearFilters = () => dispatch({ type: CLEAR_FILTERS});
 
   useEffect(() => {
     dispatch({ type: FILTER_PRODUCTS });

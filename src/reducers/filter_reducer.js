@@ -1,4 +1,4 @@
-import { LOAD_PRODUCTS, SET_GRIDVIEW, SET_LISTVIEW, SORT_PRODUCTS, UPDATE_SORT, UPDATE_FILTERS, FILTER_PRODUCTS } from "../actions";
+import { LOAD_PRODUCTS, SET_GRIDVIEW, SET_LISTVIEW, SORT_PRODUCTS, UPDATE_SORT, UPDATE_FILTERS, FILTER_PRODUCTS, CLEAR_FILTERS } from "../actions";
 
 const filter_reducer = (state, action) => {
     if (action.type === LOAD_PRODUCTS) {
@@ -39,7 +39,40 @@ const filter_reducer = (state, action) => {
         return {...state, filters: {...state.filters, [name]: value}}
     }
     if (action.type === FILTER_PRODUCTS) {
-        return { ...state };
+        const { all_products } = state;
+        const { text, category, company, shipping, color, price } = state.filters;
+        let tempProducts = [...all_products];
+        // text
+        if (text) {
+            tempProducts = tempProducts.filter((product) => product.name.toLowerCase().startsWith(text));
+        }
+        // category
+        if (category !== 'all') {
+            tempProducts = tempProducts.filter((product) => product.category === category);
+        }
+        // company
+        if (company !== 'all') {
+            tempProducts = tempProducts.filter((product) => product.company === company);
+        }
+        // colors
+        // if (color !== 'all') {
+        //     tempProducts = tempProducts.filter((product) => product. === company);
+        // }
+        return { ...state, filtered_products: tempProducts };
+    }
+    if (action.type === CLEAR_FILTERS) {
+        return { 
+            ...state,
+            filters: {
+              ...state.filters,
+              text: '',
+              company: 'all',
+              category: 'all',
+              color: 'all',
+              price: state.filters.max_price,
+              shipping: false,
+            },
+          };
     }
         throw new Error(`No Matching "${action.type}" - action type`);
 }

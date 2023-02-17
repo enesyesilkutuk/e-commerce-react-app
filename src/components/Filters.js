@@ -12,7 +12,9 @@ const Filters = () => {
     const companies = getUniqueValues(all_products, 'company');
     const categories = getUniqueValues(all_products, 'category');
     const colors = getUniqueValues(all_products, 'colors');
-    
+    // console.log(companies);
+    // console.log(categories);
+    // console.log(colors)
   return <Wrapper>
     <div className="content">
     <form onSubmit={(e) => e.preventDefault()}>
@@ -21,6 +23,27 @@ const Filters = () => {
       <input type="text" name="text" placeholder='search' className="search-input" value={text} onChange={updateFilters} />
       </div>
       {/* end of search input */}
+      {/* categories */}
+      <div className="form-control">
+        <h5>category</h5>
+        <div>
+          {categories.map((c, index) => {
+            return <button type='button' key={index} onClick={updateFilters} name='category'
+            className={`${category === c.toLowerCase() ? "active" : null }`}>{c}</button>
+          })}
+        </div>
+      </div>
+      {/* end of categories */}
+      {/* companies */}
+      <div className="form-control">
+        <h5>company</h5>
+          <select name='company' value={company} onChange={updateFilters} className="company">
+          {companies.map((c,index) => {
+            return <option key={index} value={c}>{c}</option>
+          })}
+          </select>
+      </div>
+      {/* end of companies */}
     </form>
     </div>
   </Wrapper>
@@ -60,10 +83,11 @@ const Wrapper = styled.section`
     border-color: var(--clr-grey-5);
   }
   .company {
-    background: var(--clr-grey-10);
+    background-color: var(--clr-grey-10);
     border-radius: var(--radius);
     border-color: transparent;
     padding: 0.25rem;
+    cursor: pointer;
   }
   .colors {
     display: flex;

@@ -7,4 +7,4 @@ import Error from "./ErrorPage";
 import Checkout from "./CheckoutPage";
 import PrivateRoute from "./PrivateRoute";
 
-export { About, Home, Products, SingleProduct, Cart, Error, Checkout, PrivateRoute }
+export { About, Home, Products, SingleProduct, Cart, Error, Checkout, PrivateRoute };

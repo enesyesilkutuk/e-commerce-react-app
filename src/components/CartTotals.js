@@ -10,7 +10,7 @@ const CartTotals = () => {
     <div>
       <article>
         <h5>subtotal: <span>{formatPrice(total_amount)}</span></h5>
-        <p>shopping fee <span>{formatPrice(shipping_fee)}</span></p>
+        <p>shopping fee: <span>{formatPrice(shipping_fee)}</span></p>
         <hr />
         <h4>order total: <span>{formatPrice(shipping_fee + total_amount)}</span></h4>
       </article>

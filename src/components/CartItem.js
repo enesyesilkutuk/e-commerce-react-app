@@ -7,8 +7,12 @@ import { formatPrice } from "../utils/helpers";
 
 const CartItem = ({ id, color, name, price, amount, image }) => {
   const { removeItem, toggleAmount } = useCartContext();
-  const increase = () => {};
-  const decrease = () => {};
+  const increase = () => {
+    toggleAmount(id, 'inc');
+  };
+  const decrease = () => {
+    toggleAmount(id, 'dec');
+  };
   return (
     <Wrapper>
       <div className="title">

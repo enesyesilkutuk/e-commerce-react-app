@@ -57,7 +57,7 @@ const NavContainer = styled.nav`
     }
   }
   .nav-toggle {
-    background: transparent;
+    background-color: transparent;
     border: transparent;
     color: var(--clr-primary-5);
     cursor: pointer;

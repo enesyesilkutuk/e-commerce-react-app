@@ -1,9 +1,22 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { formatPrice } from '../utils/helpers';
+import { useCartContext } from '../context/cart_context';
 
 const CartTotals = () => {
-  return <h4>cart totals</h4>
+  const { total_amount, shipping_fee } = useCartContext();
+  return <Wrapper>
+    <div>
+      <article>
+        <h5>subtotal: <span>{formatPrice(total_amount)}</span></h5>
+        <p>shopping fee <span>{formatPrice(shipping_fee)}</span></p>
+        <hr />
+        <h4>order total: <span>{formatPrice(shipping_fee + total_amount)}</span></h4>
+      </article>
+      <Link to='/checkout' className='btn'>proceed to checkout</Link>
+    </div>
+  </Wrapper>
 }
 
 const Wrapper = styled.section`

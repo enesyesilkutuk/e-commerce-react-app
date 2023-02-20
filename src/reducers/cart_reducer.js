@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from "../actions";
+import { ADD_TO_CART, CLEAR_CART, REMOVE_CART_ITEM } from "../actions";
 
 const cart_reducer = (state, action) => {
  if (action.type === ADD_TO_CART) {
@@ -29,6 +29,13 @@ const cart_reducer = (state, action) => {
     }
     return {...state, cart: [...state.cart, newItem]}
   }
+ }
+ if (action.type === CLEAR_CART) {
+  return {...state, cart: []}
+ }
+ if (action.type === REMOVE_CART_ITEM) {
+  const newCart = state.cart.filter((item) => item.id !== action.payload);
+  return {...state, cart: newCart}
  }
 };
 

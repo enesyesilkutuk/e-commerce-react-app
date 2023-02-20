@@ -1,11 +1,35 @@
-import React from 'react'
-import styled from 'styled-components'
-import AmountButtons from './AmountButtons'
-import { FaTrash } from 'react-icons/fa'
+import React from "react";
+import styled from "styled-components";
+import AmountButtons from "./AmountButtons";
+import { FaTrash } from "react-icons/fa";
+import { useCartContext } from "../context/cart_context";
+import { formatPrice } from "../utils/helpers";
 
-const CartItem = () => {
-  return <h4>cart item</h4>
-}
+const CartItem = ({ id, color, name, price, amount, image }) => {
+  const { removeItem, toggleAmount } = useCartContext();
+  const increase = () => {};
+  const decrease = () => {};
+  return (
+    <Wrapper>
+      <div className="title">
+        <img src={image} alt={name} />
+        <div>
+          <h5 className="name">{name}</h5>
+          <p className="color">
+            color: <span style={{backgroundColor: color}}></span>
+          </p>
+          <h5 className="price-small">{formatPrice(price)}</h5>
+        </div>
+      </div>
+      <h4 className="price">{formatPrice(price)}</h4>
+      <AmountButtons amount={amount} increase={increase} decrease={decrease} />
+      <h5 className="subtotal">
+      {formatPrice(price * amount)}
+      </h5>
+      <button type="button" onClick={() => removeItem(id)}className="remove-btn"><FaTrash /></button>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.article`
   .subtotal {
@@ -54,7 +78,7 @@ const Wrapper = styled.article`
       display: inline-block;
       width: 0.5rem;
       height: 0.5rem;
-      background: red;
+      background-color: red;
       margin-left: 0.5rem;
       border-radius: var(--radius);
     }
@@ -75,10 +99,9 @@ const Wrapper = styled.article`
   }
   .remove-btn {
     color: var(--clr-white);
-    background: transparent;
     border: transparent;
     letter-spacing: var(--spacing);
-    background: var(--clr-red-dark);
+    background-color: var(--clr-red-dark);
     width: 1.5rem;
     height: 1.5rem;
     display: flex;
@@ -89,6 +112,9 @@ const Wrapper = styled.article`
     cursor: pointer;
   }
   @media (min-width: 776px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    align-items: center;
+    grid-template-rows: 75px;
     .subtotal {
       display: block;
       margin-bottom: 0;
@@ -115,9 +141,6 @@ const Wrapper = styled.article`
         height: 0.75rem;
       }
     }
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    align-items: center;
-    grid-template-rows: 75px;
     img {
       height: 100%;
     }
@@ -141,6 +164,6 @@ const Wrapper = styled.article`
       }
     }
   }
-`
+`;
 
-export default CartItem
+export default CartItem;

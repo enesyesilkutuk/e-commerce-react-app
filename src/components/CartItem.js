@@ -32,12 +32,6 @@ const CartItem = ({ id, color, name, price, amount, image }) => {
 };
 
 const Wrapper = styled.article`
-  .subtotal {
-    display: none;
-  }
-  .price {
-    display: none;
-  }
   display: grid;
   grid-template-columns: 200px auto auto;
   grid-template-rows: 75px;
@@ -45,6 +39,12 @@ const Wrapper = styled.article`
   justify-items: center;
   margin-bottom: 3rem;
   align-items: center;
+  .subtotal {
+    display: none;
+  }
+  .price {
+    display: none;
+  }
   .title {
     grid-template-rows: 75px;
     display: grid;
@@ -64,7 +64,6 @@ const Wrapper = styled.article`
     font-size: 0.75rem;
     margin-bottom: 0;
   }
-
   .color {
     color: var(--clr-grey-5);
     font-size: 0.75rem;
